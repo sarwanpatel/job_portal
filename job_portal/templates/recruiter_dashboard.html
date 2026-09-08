@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Recruiter Dashboard</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .navbar {
+            background: #0d6efd;
+            color: white;
+            padding: 20px 50px;
+
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+        }
+
+        .cards {
+            display: flex;
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>JobConnect</h2>
+
+    <div>
+        Welcome, {{ session["user_name"] }}
+
+        &nbsp;&nbsp;
+
+        <a href="/logout" class="logout">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <h1>Recruiter Dashboard</h1>
+
+    <p>
+        Manage your job postings from here.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Post a Job</h3>
+
+            <p>
+                Create a new job vacancy.
+            </p>
+
+            <a
+                href="/recruiter/jobs/add"
+                class="btn">
+
+                Post Job
+
+            </a>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>My Jobs</h3>
+
+            <p>
+                View and manage your jobs.
+            </p>
+
+            <a
+                href="/recruiter/jobs"
+                class="btn">
+
+                View Jobs
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

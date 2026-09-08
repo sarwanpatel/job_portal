@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Apply - JobConnect</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        Apply for {{ job.title }}
+    </h1>
+
+    <p>
+        <strong>Company:</strong>
+        {{ job.company }}
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        {{ job.location }}
+    </p>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% for message in messages %}
+
+            <p style="color:red;">
+                {{ message }}
+            </p>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    <form method="POST">
+
+        <label>
+            Cover Letter
+        </label>
+
+        <br><br>
+
+        <textarea
+            name="cover_letter"
+            placeholder="Write why you are suitable for this job..."
+            required
+        ></textarea>
+
+        <button type="submit">
+            Submit Application
+        </button>
+
+    </form>
+
+
+    <a
+        href="/jobs/{{ job.id }}"
+        class="back">
+
+        ← Back to Job
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

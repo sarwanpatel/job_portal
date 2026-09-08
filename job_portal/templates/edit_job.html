@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Edit Job</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 120px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit Job</h1>
+
+    <form method="POST">
+
+        <label>Job Title</label>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ job.title }}"
+            required
+        >
+
+
+        <label>Company</label>
+
+        <input
+            type="text"
+            name="company"
+            value="{{ job.company }}"
+            required
+        >
+
+
+        <label>Location</label>
+
+        <input
+            type="text"
+            name="location"
+            value="{{ job.location }}"
+            required
+        >
+
+
+        <label>Category</label>
+
+        <input
+            type="text"
+            name="category"
+            value="{{ job.category }}"
+        >
+
+
+        <label>Salary</label>
+
+        <input
+            type="text"
+            name="salary"
+            value="{{ job.salary }}"
+        >
+
+
+        <label>Description</label>
+
+        <textarea
+            name="description"
+            required
+        >{{ job.description }}</textarea>
+
+
+        <label>Requirements</label>
+
+        <textarea
+            name="requirements"
+        >{{ job.requirements }}</textarea>
+
+
+        <button type="submit">
+            Update Job
+        </button>
+
+    </form>
+
+    <a
+        href="/recruiter/jobs"
+        class="back">
+
+        ← Back to My Jobs
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>JobConnect - Find Your Dream Job</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #333;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #0d6efd;
+            color: white;
+            padding: 18px 7%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(
+                135deg,
+                #0d6efd,
+                #0043a8
+            );
+
+            color: white;
+
+            text-align: center;
+
+            padding: 90px 20px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            background: white;
+            color: #0d6efd;
+
+            padding: 12px 25px;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #eee;
+        }
+
+        /* JOB SECTION */
+
+        .jobs-section {
+            width: 85%;
+            margin: 50px auto;
+        }
+
+        .jobs-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .jobs {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 25px;
+        }
+
+        .job-card {
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .job-card h3 {
+            color: #0d6efd;
+            margin-bottom: 10px;
+        }
+
+        .job-card p {
+            margin: 8px 0;
+        }
+
+        .apply-btn {
+            display: inline-block;
+
+            margin-top: 15px;
+
+            background: #0d6efd;
+            color: white;
+
+            padding: 9px 18px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+        }
+
+        .apply-btn:hover {
+            background: #0043a8;
+        }
+
+        .no-jobs {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #222;
+            color: white;
+
+            text-align: center;
+
+            padding: 25px;
+
+            margin-top: 60px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <div class="logo">
+        JobConnect
+    </div>
+
+    <div>
+
+        <a href="/">
+            Home
+        </a>
+
+        {% if session.get("user_id") %}
+
+            {% if session.get("role") == "candidate" %}
+
+                <a href="/candidate/dashboard">
+                    Dashboard
+                </a>
+
+            {% elif session.get("role") == "recruiter" %}
+
+                <a href="/recruiter/dashboard">
+                    Dashboard
+                </a>
+
+            {% elif session.get("role") == "admin" %}
+
+                <a href="/admin/dashboard">
+                    Dashboard
+                </a>
+
+            {% endif %}
+
+            <a href="/logout">
+                Logout
+            </a>
+
+        {% else %}
+
+            <a href="/login">
+                Login
+            </a>
+
+            <a href="/register">
+                Register
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <h1>
+        Find Your Dream Job
+    </h1>
+
+    <p>
+        Discover opportunities and build your career
+    </p>
+
+    {% if not session.get("user_id") %}
+
+        <a href="/register" class="btn">
+            Get Started
+        </a>
+
+    {% endif %}
+
+</section>
+
+
+<!-- =========================
+     JOBS
+========================= -->
+
+<section class="jobs-section">
+
+    <h2>
+        Latest Jobs
+    </h2>
+
+
+    {% if jobs %}
+
+        <div class="jobs">
+
+            {% for job in jobs %}
+
+                <div class="job-card">
+
+                    <h3>
+                        {{ job.title }}
+                    </h3>
+
+                    <p>
+                        <strong>Company:</strong>
+                        {{ job.company }}
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        {{ job.location }}
+                    </p>
+
+                    <p>
+                        <strong>Category:</strong>
+                        {{ job.category or "Not specified" }}
+                    </p>
+
+                    <p>
+                        <strong>Salary:</strong>
+                        {{ job.salary or "Not specified" }}
+                    </p>
+
+                    <p>
+                        {{ job.description[:120] }}
+                        {% if job.description|length > 120 %}
+                            ...
+                        {% endif %}
+                    </p>
+
+                    {% if session.get("role") == "candidate" %}
+
+                        <a
+                            href="#"
+                            class="apply-btn">
+
+                            Apply Now
+
+                        </a>
+
+                    {% elif not session.get("user_id") %}
+
+                        <a
+                            href="/login"
+                            class="apply-btn">
+
+                            Login to Apply
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="no-jobs">
+
+            <h3>
+                No jobs available yet.
+            </h3>
+
+            <p>
+                New job opportunities will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <p>
+        © 2026 JobConnect | Job Recruitment Portal
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

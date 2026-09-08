@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Candidate Dashboard - JobConnect</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f4f6f9;
+        }
+
+        .navbar {
+            background: #0d6efd;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+        }
+
+        .cards {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            width: 280px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            background: #0d6efd;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <h2>JobConnect</h2>
+
+    <div>
+        Welcome, {{ session["user_name"] }}
+
+        <a href="/">
+            Home
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <h1>Candidate Dashboard</h1>
+
+    <p>
+        Find jobs and manage your applications.
+    </p>
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>Find Jobs</h3>
+
+            <p>
+                Browse available jobs and find your
+                next opportunity.
+            </p>
+
+            <a href="/jobs" class="btn">
+                Browse Jobs
+            </a>
+
+        </div>
+
+        <div class="card">
+
+            <h3>My Applications</h3>
+
+            <p>
+                Check the status of jobs you have
+                applied for.
+            </p>
+
+            <a href="/candidate/applications" class="btn">
+                My Applications
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

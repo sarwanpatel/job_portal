@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Applicants - JobConnect</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            margin: 0;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        .job-info {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: #0d6efd;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+        textarea {
+            width: 250px;
+            height: 80px;
+        }
+
+        select {
+            padding: 8px;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 8px 15px;
+            background: #0d6efd;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="job-info">
+
+        <h1>
+            {{ job.title }}
+        </h1>
+
+        <p>
+            <strong>Company:</strong>
+            {{ job.company }}
+        </p>
+
+        <p>
+            <strong>Location:</strong>
+            {{ job.location }}
+        </p>
+
+        <p>
+            <strong>Category:</strong>
+            {{ job.category }}
+        </p>
+
+    </div>
+
+
+    <h2>
+        Applicants
+    </h2>
+
+
+    {% with messages = get_flashed_messages() %}
+
+        {% for message in messages %}
+
+            <p style="color: green;">
+                {{ message }}
+            </p>
+
+        {% endfor %}
+
+    {% endwith %}
+
+
+    {% if applicants %}
+
+    <table>
+
+        <tr>
+
+            <th>Candidate</th>
+            <th>Email</th>
+            <th>Cover Letter</th>
+            <th>Applied Date</th>
+            <th>Status</th>
+
+        </tr>
+
+
+        {% for applicant in applicants %}
+
+        <tr>
+
+            <td>
+                {{ applicant.name }}
+            </td>
+
+            <td>
+                {{ applicant.email }}
+            </td>
+
+            <td>
+                {{ applicant.cover_letter }}
+            </td>
+
+            <td>
+                {{ applicant.applied_at }}
+            </td>
+
+            <td>
+
+                <form
+                    method="POST"
+                    action="/recruiter/application/{{ applicant.id }}/status">
+
+                    <select name="status">
+
+                        <option
+                            value="Applied"
+                            {% if applicant.status == "Applied" %}
+                                selected
+                            {% endif %}>
+                            Applied
+                        </option>
+
+                        <option
+                            value="Shortlisted"
+                            {% if applicant.status == "Shortlisted" %}
+                                selected
+                            {% endif %}>
+                            Shortlisted
+                        </option>
+
+                        <option
+                            value="Selected"
+                            {% if applicant.status == "Selected" %}
+                                selected
+                            {% endif %}>
+                            Selected
+                        </option>
+
+                        <option
+                            value="Rejected"
+                            {% if applicant.status == "Rejected" %}
+                                selected
+                            {% endif %}>
+                            Rejected
+                        </option>
+
+                    </select>
+
+                    <br>
+
+                    <button type="submit">
+                        Update
+                    </button>
+
+                </form>
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+        <h3>
+            No applicants yet.
+        </h3>
+
+    {% endif %}
+
+
+    <a
+        href="/recruiter/jobs"
+        class="back">
+
+        ← Back to My Jobs
+
+    </a>
+
+</div>
+
+</body>
+
+</html>

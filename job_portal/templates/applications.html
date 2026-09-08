@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>My Applications</title>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #0d6efd;
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .Applied {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .Shortlisted {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .Rejected {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .Selected {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>
+        My Applications
+    </h1>
+
+
+    {% if applications %}
+
+    <table>
+
+        <tr>
+
+            <th>Job</th>
+            <th>Company</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Applied Date</th>
+
+        </tr>
+
+
+        {% for application in applications %}
+
+        <tr>
+
+            <td>
+                {{ application.title }}
+            </td>
+
+            <td>
+                {{ application.company }}
+            </td>
+
+            <td>
+                {{ application.location }}
+            </td>
+
+            <td
+                class="{{ application.status }}">
+
+                {{ application.status }}
+
+            </td>
+
+            <td>
+                {{ application.applied_at }}
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+        <h3>
+            You haven't applied for any jobs yet.
+        </h3>
+
+    {% endif %}
+
+
+    <br>
+
+    <a href="/candidate/dashboard">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+
+</html>
